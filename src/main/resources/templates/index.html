@@ -38,14 +38,18 @@
             <th scope="col">Artist</th>
             <th scope="col">Title</th>
             <th scope="col">Style</th>
+            <th scope="col">voteUp</th>
+            <th scope="col">voteDown</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="song : ${songs}" >
-            <th scope="row" th:text="${song.trackId}">id</th>
+            <th scope="row"><a th:href="@{'/view/'+${song.trackId}}" th:text="${song.trackId}"></a></th>
             <td th:text="${song.displayArtist}"></td>
             <td th:text="${song.displayTitle}"></td>
             <td th:text="${song.styleAll}"></td>
+            <td th:text="${song.voteUp}"></td>
+            <td th:text="${song.voteDown}"></td>
         </tr>
         </tbody>
     </table>

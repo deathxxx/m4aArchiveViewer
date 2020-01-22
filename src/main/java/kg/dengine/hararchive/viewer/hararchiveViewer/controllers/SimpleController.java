@@ -10,12 +10,12 @@ public class SimpleController {
     @Value("${spring.application.name}")
     String appName;
 
-    @GetMapping("/1")
+    @GetMapping("/11")
     public String homePage(Model model) {
         model.addAttribute("appName", appName);
         return "index";
     }
-    @GetMapping("/2")
+    @GetMapping("/22")
     public String template(Model model) {
         model.addAttribute("appName", appName);
         return "home";

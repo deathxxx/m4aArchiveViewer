@@ -1,0 +1,92 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <title>Home Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet"
+          href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/default.min.css">
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+<body class="bg-light">
+<div class="container">
+    <!-- Content here -->
+    <div class="row">
+        <div class="col-sm">
+            One of three columns
+        </div>
+        <div class="col-sm">
+            One of three columns
+        </div>
+        <div class="col-sm">
+            One of three columns
+        </div>
+    </div>
+
+    <h1 th:text="${track.track}">Hello!</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">TField</th>
+            <th scope="col">Value</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>trackId</td>
+            <td th:text="${track.trackId}"></td>
+        </tr>
+        <tr>
+            <td>artistId</td>
+            <td th:text="${track.artistId}"></td>
+        </tr>
+        <tr>
+            <td>displayArtist</td>
+            <td th:text="${track.displayArtist}"></td>
+        </tr>
+        <tr>
+            <td>displayTitle</td>
+            <td th:text="${track.displayTitle}"></td>
+        </tr>
+        <tr>
+            <td>track</td>
+            <td th:text="${track.track}"></td>
+        </tr>
+        <tr>
+            <td>voteUp</td>
+            <td th:text="${track.voteUp}"></td>
+        </tr>
+        <tr>
+            <td>voteDown</td>
+            <td th:text="${track.voteDown}"></td>
+        </tr>
+        <tr>
+            <td>style</td>
+            <td th:text="${track.style}"></td>
+        </tr>
+        <tr>
+            <td>styleAll</td>
+            <td th:text="${track.styleAll}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <pre><code class="json" th:text="${track.json}"></code></pre>
+    <label for="json">Json</label>
+    <textarea class="form-control" id="json" rows="3" th:text="${track.json}"></textarea>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+</html>

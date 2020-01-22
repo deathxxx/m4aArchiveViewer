@@ -1,5 +1,9 @@
 package kg.dengine.hararchive.viewer.hararchiveViewer.controllers;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import kg.dengine.hararchive.viewer.hararchiveViewer.entity.AllEntity;
 import kg.dengine.hararchive.viewer.hararchiveViewer.repository.AllSongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -62,5 +67,24 @@ public class HarArchiveView {
         model.addAttribute("songs", tracks);
 
         return "index";
+    }
+
+    @GetMapping("/view/{trackId}")
+    public String view(@PathVariable Long trackId, Model model){
+
+        AllEntity track = repository.findByTrackId(trackId);
+        track.setJson(parseJson(track.getJson()));
+        model.addAttribute("track", track);
+
+        return "view";
+    }
+
+    public String parseJson(String jsonString) {
+        JsonParser parser = new JsonParser();
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+        JsonElement el = parser.parse(jsonString);
+        jsonString = gson.toJson(el); // done
+        return jsonString;
     }
 }

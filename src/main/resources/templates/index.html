@@ -20,13 +20,16 @@
         </div>
     </div>
 
-    <h1>Hello to har Media Archive!</h1>
+    <h1>Hello!</h1>
     <p>Welcome to <span th:text="${appName}">Our App</span></p>
-    <p>
-        <label for="input">Search</label>
-        <input type="text" id="input" placeholder="Example input">
-        <button type="button" class="btn btn-primary">Primary</button>
-    </p>
+    <form class="form-inline" method="post" action="/search">
+        <p>
+            <label for="input">Search</label>
+            <input type="text" id="input" placeholder="Example input">
+            <button type="submit" class="btn btn-primary">Search</button>
+            <span th:text="${count}"></span>
+        </p>
+    </form>
 
     <table class="table">
         <thead>

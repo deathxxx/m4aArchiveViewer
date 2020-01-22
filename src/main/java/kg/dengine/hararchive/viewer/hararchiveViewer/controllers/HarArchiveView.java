@@ -9,10 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -39,27 +36,14 @@ public class HarArchiveView {
         model.addAttribute("appName", appName);
         return "home";
     }
-    @PostMapping(path = "/search", consumes = {"text/plain", "application/*"})
-    public String search(HttpServletRequest request,
-                         UriComponentsBuilder uriComponentsBuilder, Model model) {
-        String search = request.getParameter("search");
-
-        System.out.println("hello");
-        System.out.println(search);
-//        System.out.println(request.toString());
+    @PostMapping("/search")
+    public String search(@RequestBody String input) {
+        System.out.println(input);
 //        model.addAttribute("appName", appName);
 //
-
-        List<AllEntity> tracks = new ArrayList<>();
-        if (!search.equals("")) {
-            tracks = repository.findByTrackContains(search);
-        }
-
-        System.out.println(tracks.size());
+//        List<AllEntity> prodigy = repository.findByTrack("Marshmello - Stars");
 //
-        model.addAttribute("search", search);
-        model.addAttribute("count", tracks.size());
-        model.addAttribute("songs", tracks);
+//        model.addAttribute("count", prodigy.size());
 
         return "index";
     }

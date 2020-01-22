@@ -25,9 +25,9 @@
     <form class="form-inline" method="post" action="/search">
         <p>
             <label for="input">Search</label>
-            <input type="text" id="input" placeholder="Example input">
+            <input type="text" id="input" name="search" placeholder="Example input" th:value="${search}">
             <button type="submit" class="btn btn-primary">Search</button>
-            <span th:text="${count}"></span>
+            <span th:text="${count}">0</span>
         </p>
     </form>
 
@@ -35,29 +35,17 @@
         <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
+            <th scope="col">Artist</th>
+            <th scope="col">Title</th>
+            <th scope="col">Style</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
+        <tr th:each="song : ${songs}" >
+            <th scope="row" th:text="${song.trackId}">id</th>
+            <td th:text="${song.displayArtist}"></td>
+            <td th:text="${song.displayTitle}"></td>
+            <td th:text="${song.styleAll}"></td>
         </tr>
         </tbody>
     </table>

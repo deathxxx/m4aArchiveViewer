@@ -1,9 +1,6 @@
 package kg.dengine.hararchive.viewer.hararchiveViewer.controllers;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 import kg.dengine.hararchive.viewer.hararchiveViewer.entity.AllEntity;
 import kg.dengine.hararchive.viewer.hararchiveViewer.repository.AllSongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +15,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class HarArchiveView {
@@ -39,11 +38,13 @@ public class HarArchiveView {
 
         return "index";
     }
+
     @GetMapping("/2")
     public String template(Model model) {
         model.addAttribute("appName", appName);
         return "home";
     }
+
     @PostMapping(path = "/search", consumes = {"text/plain", "application/*"})
     public String search(HttpServletRequest request,
                          UriComponentsBuilder uriComponentsBuilder, Model model) {
@@ -51,9 +52,6 @@ public class HarArchiveView {
 
         System.out.println("hello");
         System.out.println(search);
-//        System.out.println(request.toString());
-//        model.addAttribute("appName", appName);
-//
 
         List<AllEntity> tracks = new ArrayList<>();
         if (!search.equals("")) {
@@ -61,7 +59,6 @@ public class HarArchiveView {
         }
 
         System.out.println(tracks.size());
-//
         model.addAttribute("search", search);
         model.addAttribute("count", tracks.size());
         model.addAttribute("songs", tracks);
@@ -70,12 +67,15 @@ public class HarArchiveView {
     }
 
     @GetMapping("/view/{trackId}")
-    public String view(@PathVariable Long trackId, Model model){
+    public String view(@PathVariable Long trackId, Model model) {
 
         AllEntity track = repository.findByTrackId(trackId);
-        track.setJson(parseJson(track.getJson()));
         model.addAttribute("track", track);
 
+        model.addAttribute("jsonFormated", parseJson(track.getJson()));
+
+        model.addAttribute("asset_url", "http:"+parseJsonObjectElementToString(track.getJson(),"asset_url"));
+        model.addAttribute("details_url", parseJsonObjectElementToString(track.getJson(), "details_url"));
         return "view";
     }
 
@@ -86,5 +86,23 @@ public class HarArchiveView {
         JsonElement el = parser.parse(jsonString);
         jsonString = gson.toJson(el); // done
         return jsonString;
+    }
+
+    public String parseJsonObjectElementToString(String json, String obj) {
+        String out = "";
+
+        JsonParser parser = new JsonParser();
+
+        JsonElement jsonTree = parser.parse(json);
+
+        if (jsonTree.isJsonObject()) {
+            JsonObject jsonObject = jsonTree.getAsJsonObject();
+
+            JsonElement el = jsonObject.get(obj);
+
+            out = el.getAsString();
+        }
+
+        return out;
     }
 }

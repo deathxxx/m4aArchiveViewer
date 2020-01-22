@@ -27,11 +27,11 @@
 
     <h1 th:text="${track.track}">Hello!</h1>
 
-    <table class="table">
+    <table class="table table-striped">
         <thead>
         <tr>
-            <th scope="col">TField</th>
-            <th scope="col">Value</th>
+            <th scope="col"><b>TField</b></th>
+            <th scope="col"><b>Value</b></th>
         </tr>
         </thead>
         <tbody>
@@ -74,10 +74,63 @@
         </tbody>
     </table>
 
+    <h3>Json</h3>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col"><b>field</b></th>
+            <th scope="col"><b>value</b></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>asset_url</td>
+            <td th:text="${asset_url}"></td>
+        </tr>
+        <tr>
+            <td>details_url</td>
+            <td><a th:href="${details_url}" th:text="${details_url}"></a></td>
+        </tr>
+        </tbody>
+    </table>
 
-    <pre><code class="json" th:text="${track.json}"></code></pre>
-    <label for="json">Json</label>
-    <textarea class="form-control" id="json" rows="3" th:text="${track.json}"></textarea>
+    <figure class="figure">
+        <img th:src="${asset_url}" class="figure-img img-fluid rounded" th:alt="${track.track}">
+        <figcaption class="figure-caption text-right" th:text="${track.track}">A caption for the above image.</figcaption>
+    </figure>
+
+    <p>
+        <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            Link - JSON - With code formated and highlighted
+        </a>
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            Button - JSON - With code formated and highlighted
+        </button>
+    </p>
+    <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+            <label for="jsoncode">Json</label>
+            <pre id="jsoncode"><code class="json" th:text="${jsonFormated}"></code></pre>
+        </div>
+    </div>
+
+
+    <p>
+        <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample2">
+            Link - JSON - Without code formated
+        </a>
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2">
+            Button - JOSN - without code formated
+        </button>
+    </p>
+    <div class="collapse" id="collapseExample2">
+        <div class="card card-body">
+            <label for="json">Json</label>
+            <textarea class="form-control" id="json" rows="20" th:text="${track.json}"></textarea>
+        </div>
+    </div>
+
+
 </div>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

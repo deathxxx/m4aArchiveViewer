@@ -90,19 +90,19 @@ public class HarArchiveView {
 
     public String parseJsonObjectElementToString(String json, String obj) {
         String out = "";
-
         JsonParser parser = new JsonParser();
-
         JsonElement jsonTree = parser.parse(json);
-
         if (jsonTree.isJsonObject()) {
             JsonObject jsonObject = jsonTree.getAsJsonObject();
-
             JsonElement el = jsonObject.get(obj);
-
             out = el.getAsString();
         }
-
         return out;
+    }
+
+    @PostMapping(path = "/searchStyle", consumes = {"text/plain", "application/*"})
+    public String findByStyle(HttpServletRequest request,
+                              UriComponentsBuilder uriComponentsBuilder, Model model) {
+        return "index";
     }
 }

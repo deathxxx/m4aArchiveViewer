@@ -4,10 +4,11 @@
     "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
   <session-factory>
-    <property name="connection.url">jdbc:postgresql://localhost:5432/postgres</property>
+    <property name="connection.url">jdbc:postgresql://172.16.3.6:5432/Test</property>
     <property name="connection.driver_class">org.postgresql.Driver</property>
-    <mapping class="kg.dengine.hararchive.viewer.hararchiveViewer.entity.AllEntity"/>
-    <!-- <property name="connection.username"/> -->
+      <mapping class="kg.dengine.hararchive.viewer.hararchiveViewer.entity.AllEntity"/>
+      <mapping class="kg.dengine.hararchive.viewer.hararchiveViewer.entity.ArtistEntity"/>
+      <!-- <property name="connection.username"/> -->
     <!-- <property name="connection.password"/> -->
 
     <!-- DB schema will be updated if needed -->

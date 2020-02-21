@@ -1,3 +1,16 @@
+create table allsong.artist
+(
+	artist_id bigint,
+	display_artist text
+)
+;
+
+create unique index artist_artist_id_uindex
+	on artist (artist_id)
+;
+
+
+
 INSERT INTO allsong.artist
   SELECT artist_id, display_artist
   FROM allsong."all" WHERE NOT EXISTS (
@@ -11,8 +24,8 @@ from allsong."all"
 GROUP BY artist_id
 ORDER BY artist_id;
 
-UPDATE artist
-  set display_artist = "all".display_artist
-from "all"
+UPDATE allsong.artist
+set display_artist = "all".display_artist
+from allsong."all"
 
-where "all".artist_id = artist.artist_id;
+where allsong."all".artist_id = artist.artist_id;

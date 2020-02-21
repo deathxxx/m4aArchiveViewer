@@ -1,9 +1,6 @@
 package kg.dengine.hararchive.viewer.hararchiveViewer.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "artist", schema = "allsong", catalog = "Test")
@@ -11,7 +8,7 @@ public class ArtistEntity {
     private Long artistId;
     private String displayArtist;
 
-    @Basic
+    @Id
     @Column(name = "artist_id")
     public Long getArtistId() {
         return artistId;

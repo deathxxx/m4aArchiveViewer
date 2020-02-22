@@ -72,6 +72,12 @@
 			<version>2.8.5</version>
 		</dependency>
 
+		<!--dev tools -->
+		<!--<dependency>-->
+			<!--<groupId>org.springframework.boot</groupId>-->
+			<!--<artifactId>spring-boot-devtools</artifactId>-->
+		<!--</dependency>-->
+
     </dependencies>
 
 	<build>

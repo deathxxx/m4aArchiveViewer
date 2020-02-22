@@ -10,4 +10,5 @@ public interface AllSongRepository extends CrudRepository<AllEntity, Long> {
     List<AllEntity> findByTrackContains(String track);
     AllEntity findByTrackId(Long id);
     List<AllEntity> findAllByStyleAllContains(String style);
+    List<AllEntity> findByArtistId(Long artistId);
 }

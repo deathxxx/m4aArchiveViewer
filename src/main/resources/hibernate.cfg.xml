@@ -8,6 +8,7 @@
     <property name="connection.driver_class">org.postgresql.Driver</property>
       <mapping class="kg.dengine.hararchive.viewer.hararchiveViewer.entity.AllEntity"/>
       <mapping class="kg.dengine.hararchive.viewer.hararchiveViewer.entity.ArtistEntity"/>
+      <mapping class="kg.dengine.hararchive.viewer.hararchiveViewer.entity.StyleEntity"/>
       <!-- <property name="connection.username"/> -->
     <!-- <property name="connection.password"/> -->
 

@@ -49,12 +49,6 @@ public class HarArchiveView {
         return "index1";
     }
 
-//    @GetMapping("/2")
-//    public String template(Model model) {
-//        model.addAttribute("appName", appName);
-//        return "home";
-//    }
-
     @PostMapping(path = "/search", consumes = {"text/plain", "application/*"})
     public String search(HttpServletRequest request,
                          UriComponentsBuilder uriComponentsBuilder, Model model) {
@@ -65,7 +59,9 @@ public class HarArchiveView {
 
         List<AllEntity> tracks = new ArrayList<>();
         if (!search.equals("")) {
-            tracks = repository.findByTrackContains(search);
+//            tracks = repository.findByTrackContains(search);
+//            tracks = repository.findByTrackContainsOrderByVoteUpAsc(search);
+            tracks = repository.findByTrackContainsOrderByVoteUpDesc(search);
         }
 
         System.out.println(tracks.size());
@@ -80,8 +76,13 @@ public class HarArchiveView {
     public String view(@PathVariable Long trackId, Model model) {
 
         AllEntity track = repository.findByTrackId(trackId);
+//        System.out.println(track.getStyle());
+        StyleEntity style = styleRepository.findByNameIs(track.getStyle());
         model.addAttribute("track", track);
-
+        model.addAttribute("style", style);
+        if(!track.getFolder().equals("")) {
+            model.addAttribute("path", "/home/dex/Projects/Music/" + style.getRootFolder()+"/"+style.getName()+"/"+track.getFolder()+"/"+track.getTrack()+".m4a");
+        }
         model.addAttribute("jsonFormated", parseJson(track.getJson()));
 
         model.addAttribute("asset_url", "http:"+parseJsonObjectElementToString(track.getJson(),"asset_url"));
@@ -109,99 +110,5 @@ public class HarArchiveView {
         }
         return out;
     }
-
-//    @PostMapping(path = "/searchStyle", consumes = {"text/plain", "application/*"})
-//    public String findByStyle(HttpServletRequest request,
-//                              UriComponentsBuilder uriComponentsBuilder, Model model) {
-//        return "index1";
-//    }
-
-    @GetMapping("/artist")
-    public String homePageArtist(Model model) {
-        model.addAttribute("appName", appName);
-
-//        List<AllEntity> prodigy = repository.findByTrack("Marshmello - Stars");
-
-        model.addAttribute("count", "0");
-
-        return "indexArtist";
-    }
-
-    @PostMapping(path = "/searchArtistSongs", consumes = {"text/plain", "application/*"})
-    public String searchArtistSongs(HttpServletRequest request,
-                         UriComponentsBuilder uriComponentsBuilder, Model model) {
-        String search = request.getParameter("search");
-
-        System.out.println("hello");
-        System.out.println(search);
-
-        List<ArtistEntity> artist = new ArrayList<>();
-        if (!search.equals("")) {
-            artist = artistRepository.findByDisplayArtistContains(search);
-        }
-
-        System.out.println(artist.size());
-        model.addAttribute("search", search);
-        model.addAttribute("count", artist.size());
-        model.addAttribute("artists", artist);
-
-        return "indexArtist";
-    }
-
-    @GetMapping("/viewArtistSongs/{artistId}")
-    public String viewSrtistSongs(@PathVariable Long artistId, Model model) {
-
-        List<AllEntity> tracks = repository.findByArtistId(artistId);
-        model.addAttribute("songs", tracks);
-        model.addAttribute("search", tracks.get(0).getDisplayArtist());
-        model.addAttribute("count", tracks.size());
-        model.addAttribute("songs", tracks);
-
-
-        return "indexArtistSongs";
-    }
-
-
-    @GetMapping("/style")
-    public String homePageStyle(Model model) {
-        model.addAttribute("appName", appName);
-
-//        List<AllEntity> prodigy = repository.findByTrack("Marshmello - Stars");
-
-        model.addAttribute("count", "0");
-
-        return "indexStyle";
-    }
-
-    @PostMapping(path = "/searchStyle", consumes = {"text/plain", "application/*"})
-    public String searchStyles(HttpServletRequest request,
-                                    UriComponentsBuilder uriComponentsBuilder, Model model) {
-        String search = request.getParameter("search");
-        String all = request.getParameter("all");
-
-        System.out.println("serachStyle");
-        System.out.println(search);
-
-        List<StyleEntity> style = new ArrayList<>();
-        if (!search.equals("")) {
-            style = styleRepository.findByName(search);
-        } else {
-            style = (List<StyleEntity>) styleRepository.findAll();
-        }
-
-//        for (StyleEntity ent: style) {
-//            ent.setCount(styleRepository.nativeCountStyle(ent.getId()));
-//        }
-
-
-
-        System.out.println(style.size());
-        model.addAttribute("search", search);
-        model.addAttribute("count", style.size());
-        model.addAttribute("styles", style);
-
-        return "indexStyle";
-    }
-
 
 }

@@ -16,6 +16,8 @@ public class AllEntity {
     private String style;
     private String styleAll;
     private String json;
+    private String folder;
+//    private StyleEntity style;
 
     @Id
     @Column(name = "track_id")
@@ -108,7 +110,9 @@ public class AllEntity {
     }
 
     @Basic
-    @Column(name = "json")
+//    @Transient
+//    @Column(name = "json")
+    @Column(name = "json", insertable = false, updatable = false)
     public String getJson() {
         return json;
     }
@@ -116,6 +120,31 @@ public class AllEntity {
     public void setJson(String json) {
         this.json = json;
     }
+
+    @Basic
+    @Column(name = "folder")
+    public String getFolder() {
+        return folder;
+    }
+
+    public void setFolder(String folder) {
+        this.folder = folder;
+    }
+
+//    @Transient
+//    @OneToOne(fetch = FetchType.EAGER, mappedBy = "name")
+////    @JoinColumn(name = "name")
+//    @JoinTable(name="style")
+//    public StyleEntity getStyle() {
+//        return style;
+//    }
+
+//    public void setStyle(StyleEntity style) {
+//        this.style = style;
+//    }
+
+
+
 
     @Override
     public boolean equals(Object o) {
@@ -131,12 +160,13 @@ public class AllEntity {
                 Objects.equals(voteDown, allEntity.voteDown) &&
                 Objects.equals(style, allEntity.style) &&
                 Objects.equals(styleAll, allEntity.styleAll) &&
-                Objects.equals(json, allEntity.json);
+                Objects.equals(json, allEntity.json) &&
+                Objects.equals(folder, allEntity.folder);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(trackId, artistId, displayArtist, displayTitle, track, voteUp, voteDown, style, styleAll, json);
+        return Objects.hash(trackId, artistId, displayArtist, displayTitle, track, voteUp, voteDown, style, styleAll, json, folder);
     }
 }

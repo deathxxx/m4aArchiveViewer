@@ -3,27 +3,14 @@
     <title>Home Page</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
     <link rel="stylesheet"
           href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/default.min.css">
     <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-
 </head>
 <body class="bg-light">
 <div class="container">
-    <!-- Content here -->
-    <div class="row">
-        <div class="col-sm">
-            One of three columns
-        </div>
-        <div class="col-sm">
-            One of three columns
-        </div>
-        <div class="col-sm">
-            One of three columns
-        </div>
-    </div>
+    <div th:replace="fragments2/navbar1 :: navbar"></div>
 
     <h1 th:text="${track.track}">Hello!</h1>
 
@@ -71,6 +58,27 @@
             <td>styleAll</td>
             <td th:text="${track.styleAll}"></td>
         </tr>
+        <tr>
+            <td>folder</td>
+            <td th:text="${track.folder}"></td>
+        </tr>
+        <tr>
+            <td>StyleID</td>
+            <td th:text="${style.id}"></td>
+        </tr>
+        <tr>
+            <td>StyleName</td>
+            <td th:text="${style.name}"></td>
+        </tr>
+        <tr>
+            <td>StyleRootFolder</td>
+            <td th:text="${style.rootFolder}"></td>
+        </tr>
+        <tr>
+            <td>Path</td>
+            <td > <p th:text="${path}"></p> <br/><p><a th:href="@{'/play/'+${track.trackId}}" th:text="play"></a></p></td>
+        </tr>
+
         </tbody>
     </table>
 
@@ -132,14 +140,6 @@
 
 
 </div>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
+<div th:replace="fragments2/footer1 :: footer"></div>
 </body>
 </html>

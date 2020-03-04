@@ -1,18 +1,18 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml" lang="en">
-<head th:include="fragments2/header1 :: head"></head>
+<head th:replace="fragments2/header1 :: head"></head>
 <body class="bg-light">
 <div class="container">
-
     <div th:replace="fragments2/navbar1 :: navbar"></div>
 
     <h1>Hello!</h1>
     <p>Welcome to <span th:text="${appName}">Our App</span></p>
-    <p>Search by Artist - list songs with link to deatail page</p>
-    <form class="form-inline" method="post" action="/search">
+    <p>View all songs by style</p>
+    <p>Style count (magic query) - <p th:text="${styleCountMagicQuery}"></p></p>
+    <form class="form-inline" method="post" action="/style/searchStyle">
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-            <label class="form-check-label" for="defaultCheck1">
-                Default checkbox
+            <input class="form-check-input" type="checkbox" value="" id="all" name="">
+            <label class="form-check-label" for="all">
+                Serach by style
             </label>
         </div>
         <p>
@@ -49,5 +49,11 @@
 
 </div>
 <div th:replace="fragments2/footer1 :: footer"></div>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    /*]]>*/
+</script>
 </body>
 </html>

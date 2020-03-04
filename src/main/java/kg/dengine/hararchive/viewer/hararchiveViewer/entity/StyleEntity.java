@@ -8,6 +8,7 @@ public class StyleEntity {
     private Integer id;
     private String name;
     private Integer count;
+    private String rootFolder;
 
     @Transient
     public Integer getCount() {
@@ -40,6 +41,16 @@ public class StyleEntity {
         this.name = name;
     }
 
+    @Basic
+    @Column(name = "root_folder")
+    public String getRootFolder() {
+        return rootFolder;
+    }
+
+    public void setRootFolder(String rootFolder) {
+        this.rootFolder = rootFolder;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -49,6 +60,7 @@ public class StyleEntity {
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
+//        if (rootFolder != null ? !rootFolder.equals(that.rootFolder) : that.rootFolder != null) return false;
 
         return true;
     }

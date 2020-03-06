@@ -105,6 +105,17 @@ public class AllEntity {
         return styleAll;
     }
 
+    @Transient
+    public String getStyleAllLinks() {
+        String out = "";
+        String href = "<a href=\"http://localhost:8080/style/viewStyleName/\"";
+        String[] split = styleAll.split(" ");
+        for(String style : split) {
+            out += "<a href=\"http://localhost:8080/style/viewStyleName/"+style+"\"/>"+style+"</a>&nbsp;";
+        }
+        return out;
+    }
+
     public void setStyleAll(String styleAll) {
         this.styleAll = styleAll;
     }

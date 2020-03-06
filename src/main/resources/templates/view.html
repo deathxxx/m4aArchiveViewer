@@ -24,15 +24,15 @@
         <tbody>
         <tr>
             <td>trackId</td>
-            <td th:text="${track.trackId}"></td>
+            <td><a th:href="@{'/view/'+${track.trackId}}" th:text="${track.trackId}"></a></td>
         </tr>
         <tr>
             <td>artistId</td>
-            <td th:text="${track.artistId}"></td>
+            <td><a th:href="@{'/artist/viewArtistSongs/'+${track.artistId}}" th:text="${track.artistId}"></a></td>
         </tr>
         <tr>
             <td>displayArtist</td>
-            <td th:text="${track.displayArtist}"></td>
+            <td><a th:href="@{'/artist/viewArtistSongs/'+${track.artistId}}" th:text="${track.displayArtist}"></a></td>
         </tr>
         <tr>
             <td>displayTitle</td>
@@ -52,10 +52,14 @@
         </tr>
         <tr>
             <td>style</td>
-            <td th:text="${track.style}"></td>
+            <td><a th:href="@{'/style/viewStyleName/'+${track.style}}"  th:text="${track.style}"></a></td>
         </tr>
         <tr>
             <td>styleAll</td>
+            <td th:text="${track.styleAll}"></td>
+        </tr>
+        <tr>
+            <td>styleAllArr</td>
             <td th:text="${track.styleAll}"></td>
         </tr>
         <tr>

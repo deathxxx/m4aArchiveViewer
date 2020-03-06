@@ -65,7 +65,9 @@ public class Style {
 //            ent.setCount(styleRepository.nativeCountStyle(ent.getId()));
 //        }
 
-
+        model.addAttribute("idOrder", "idAsc");
+        model.addAttribute("styleOrder", "styleAsc");
+        model.addAttribute("rootOrder", "rootAsc");
 
         System.out.println(style.size());
         model.addAttribute("search", search);
@@ -87,14 +89,23 @@ public class Style {
             style = styleRepository.findByName(search);
         } else {
             switch (order) {
-                case "id" :
+                case "idAsc" :
                     style = styleRepository.findAllByOrderByIdAsc();
                     break;
-                case "style" :
+                case "idDesc" :
+                    style = styleRepository.findAllByOrderByIdDesc();
+                    break;
+                case "styleAsc" :
                     style = styleRepository.findAllByOrderByNameAsc();
                     break;
-                case "root" :
+                case "styleDesc" :
+                    style = styleRepository.findAllByOrderByNameDesc();
+                    break;
+                case "rootAsc" :
                     style = styleRepository.findAllByOrderByRootFolderAsc();
+                    break;
+                case "rootDesc" :
+                    style = styleRepository.findAllByOrderByRootFolderDesc();
                     break;
                 default:
                     style = (List<StyleEntity>) styleRepository.findAll();
@@ -107,6 +118,13 @@ public class Style {
 //        }
 
 
+        String idOrder = order.equals("idAsc") ? "idDesc" : "idAsc";
+        String styleOrder = order.equals("styleAsc") ? "styleDesc" : "styleAsc";
+        String rootOrder = order.equals("rootAsc") ? "rootDesc" : "rootAsc";
+
+        model.addAttribute("idOrder", idOrder);
+        model.addAttribute("styleOrder", styleOrder);
+        model.addAttribute("rootOrder", rootOrder);
 
         System.out.println(style.size());
         model.addAttribute("search", search);
@@ -150,6 +168,74 @@ public class Style {
         System.out.println(byIdSingle.get().getName());
         System.out.println(byIdSingle1.getName());
 
+
+        model.addAttribute("search", byIdSingle.get().getName());
+        model.addAttribute("count", allByStyleAllContains.size());
+        model.addAttribute("songs", allByStyleAllContains);
+        model.addAttribute("styleCountMagicQuery", styleRepository.nativeCountStyle(styleId));
+
+        return "indexStyleSongs";
+    }
+
+    @GetMapping({"/viewStyleNameOrder/{order}/{styleName}"})
+    public String viewStyleNameOrder(@PathVariable String styleName, @PathVariable String order, Model model) {
+
+        StyleEntity byNameIs = styleRepository.findByNameIs(styleName);
+        Integer styleId = byNameIs.getId();
+        Optional<StyleEntity> byIdSingle = styleRepository.findById(styleId);
+        StyleEntity byIdSingle1 = styleRepository.findByIdIs(styleId);
+
+        List<AllEntity> allByStyleAllContains = new ArrayList<>();
+        switch (order) {
+            case "id" :
+                allByStyleAllContains = repository.findAllByStyleAllContainsOrderByTrackIdAsc(byIdSingle1.getName());
+                break;
+            case "artist" :
+                allByStyleAllContains = repository.findAllByStyleAllContainsOrderByDisplayArtistAsc(byIdSingle1.getName());
+                break;
+            case "title" :
+                allByStyleAllContains = repository.findAllByStyleAllContainsOrderByTrackAsc(byIdSingle1.getName());
+                break;
+            case "style" :
+                allByStyleAllContains = repository.findAllByStyleAllContainsOrderByStyleAsc(byIdSingle1.getName());
+                break;
+            case "upAsc" :
+                allByStyleAllContains = repository.findAllByStyleAllContainsOrderByVoteUpAsc(byIdSingle1.getName());
+                break;
+            case "upDesc" :
+                allByStyleAllContains = repository.findAllByStyleAllContainsOrderByVoteUpDesc(byIdSingle1.getName());
+                break;
+            case "downAsc" :
+                allByStyleAllContains = repository.findAllByStyleAllContainsOrderByVoteDownAsc(byIdSingle1.getName());
+                break;
+            case "downDesc" :
+                allByStyleAllContains = repository.findAllByStyleAllContainsOrderByVoteDownDesc(byIdSingle1.getName());
+                break;
+            default:
+                allByStyleAllContains = repository.findAllByStyleAllContains(byIdSingle1.getName());
+        }
+        System.out.println(byIdSingle.get().getName());
+        System.out.println(byIdSingle1.getName());
+
+        String voteUp = "", voteDown = "";
+        if(order.equals("upAsc")) {
+            voteUp = "upDesc";
+        } else if (order.equals("upDesc")) {
+            voteUp = "upAsc";
+        } else {
+            voteUp = "upDesc"; //default
+        }
+
+        if(order.equals("downAsc")) {
+            voteDown = "downDesc";
+        } else if (order.equals("downDesc")) {
+            voteDown = "downAsc";
+        } else {
+            voteDown = "downDesc"; //default
+        }
+
+        model.addAttribute("voteUp", voteUp);
+        model.addAttribute("voteDown", voteDown);
 
         model.addAttribute("search", byIdSingle.get().getName());
         model.addAttribute("count", allByStyleAllContains.size());

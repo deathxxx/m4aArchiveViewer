@@ -32,4 +32,7 @@ public interface StyleRepository extends CrudRepository<StyleEntity, Integer> {
     List<StyleEntity> findAllByOrderByIdAsc();
     List<StyleEntity> findAllByOrderByNameAsc();
     List<StyleEntity> findAllByOrderByRootFolderAsc();
+    List<StyleEntity> findAllByOrderByIdDesc();
+    List<StyleEntity> findAllByOrderByNameDesc();
+    List<StyleEntity> findAllByOrderByRootFolderDesc();
 }

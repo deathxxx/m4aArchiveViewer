@@ -4,10 +4,10 @@
 <div class="container">
     <div th:replace="fragments2/navbar1 :: navbar"></div>
 
-    <h1>Hello!</h1>
+    <h1>Style -> View style songs - <span th:text="${search}"></span></h1>
     <p>Welcome to <span th:text="${appName}">Our App</span></p>
     <p>View all songs by style</p>
-    <p>Style count (magic query) - <p th:text="${styleCountMagicQuery}"></p></p>
+    <p>Style count (magic query) - <b><span th:text="${styleCountMagicQuery}"></span></b></p>
     <form class="form-inline" method="post" action="/style/searchStyle">
         <div class="form-check">
             <input class="form-check-input" type="checkbox" value="" id="all" name="">
@@ -26,12 +26,12 @@
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">#</th>
-            <th scope="col">Artist</th>
-            <th scope="col">Title</th>
-            <th scope="col">Style</th>
-            <th scope="col">voteUp</th>
-            <th scope="col">voteDown</th>
+            <th scope="col"><a th:href="@{'/style/viewStyleNameOrder/id/'+${search}}">#</a></th>
+            <th scope="col"><a th:href="@{'/style/viewStyleNameOrder/artist/'+${search}}">Artist</a></th>
+            <th scope="col"><a th:href="@{'/style/viewStyleNameOrder/title/'+${search}}">Title</a></th>
+            <th scope="col"><a th:href="@{'/style/viewStyleNameOrder/style/'+${search}}">Style</a></th>
+            <th scope="col"><a th:href="@{'/style/viewStyleNameOrder/'+${voteUp}+'/'+${search}}">voteUp</a></th>
+            <th scope="col"><a th:href="@{'/style/viewStyleNameOrder/'+${voteDown}+'/'+${search}}">voteDown</a></th>
         </tr>
         </thead>
         <tbody>
@@ -40,7 +40,7 @@
             <!--<td th:text="${song.displayArtist}"></td>-->
             <td scope="row"><a th:href="@{'/artist/viewArtistSongs/'+${song.artistId}}" th:text="${song.displayArtist}"></a></td>
             <td th:text="${song.displayTitle}"></td>
-            <td th:text="${song.styleAll}"></td>
+            <td th:utext="${song.styleAllLinks}"></td>
             <td th:text="${song.voteUp}"></td>
             <td th:text="${song.voteDown}"></td>
         </tr>

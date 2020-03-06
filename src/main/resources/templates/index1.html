@@ -40,7 +40,7 @@
             <!--<td th:text="${song.displayArtist}"></td>-->
             <td scope="row"><a th:href="@{'/artist/viewArtistSongs/'+${song.artistId}}" th:text="${song.displayArtist}"></a></td>
             <td th:text="${song.displayTitle}"></td>
-            <td th:text="${song.styleAll}"></td>
+            <td th:utext="${song.styleAllLinks}"></td>
             <td th:text="${song.voteUp}"></td>
             <td th:text="${song.voteDown}"></td>
         </tr>

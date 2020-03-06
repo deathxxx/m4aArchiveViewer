@@ -32,4 +32,16 @@ public interface AllSongRepository extends CrudRepository<AllEntity, Long> {
     List<AllEntity> findByTrackContainsOrderByVoteUp(String track);
     List<AllEntity> findByTrackContainsOrderByVoteDown(String track);
 
+    //sorting
+    List<AllEntity> findAllByStyleAllContainsOrderByArtistIdAsc(String style);
+    List<AllEntity> findAllByStyleAllContainsOrderByTrackIdAsc(String style);
+    List<AllEntity> findAllByStyleAllContainsOrderByDisplayArtistAsc(String style);
+    List<AllEntity> findAllByStyleAllContainsOrderByTrackAsc(String style);
+    List<AllEntity> findAllByStyleAllContainsOrderByStyleAsc(String style);
+    List<AllEntity> findAllByStyleAllContainsOrderByVoteUpAsc(String style);
+    List<AllEntity> findAllByStyleAllContainsOrderByVoteUpDesc(String style);
+    List<AllEntity> findAllByStyleAllContainsOrderByVoteDownAsc(String style);
+    List<AllEntity> findAllByStyleAllContainsOrderByVoteDownDesc(String style);
+
+
 }

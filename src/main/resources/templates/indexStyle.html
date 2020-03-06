@@ -4,7 +4,7 @@
 <div class="container">
     <div th:replace="fragments2/navbar1 :: navbar"></div>
 
-    <h1>Hello!</h1>
+    <h1>Style -> Search</h1>
     <p>Welcome to <span th:text="${appName}">Our App</span></p>
     <p>Search by Style (Only)</p>
     <form class="form-inline" method="post" action="/style/searchStyle">
@@ -25,9 +25,9 @@
     <table class="table">
         <thead>
         <tr>
-            <th scope="col"><a th:href="@{'/style/searchStyleOrder/id'}">#</a></th>
-            <th scope="col"><a th:href="@{'/style/searchStyleOrder/style'}">Style</a></th>
-            <th scope="col"><a th:href="@{'/style/searchStyleOrder/root'}">RootFolder</a></th>
+            <th scope="col"><a th:href="@{'/style/searchStyleOrder/'+${idOrder}}">#</a></th>
+            <th scope="col"><a th:href="@{'/style/searchStyleOrder/'+${styleOrder}}">Style</a></th>
+            <th scope="col"><a th:href="@{'/style/searchStyleOrder/'+${rootOrder}}">RootFolder</a></th>
             <th scope="col"><a th:href="@{'/style/searchStyleOrder/count'}">Count</a></th>
             <th scope="col"><a th:href="@{'/style/searchStyleOrder/reload'}">Reload</a></th>
 
@@ -36,7 +36,7 @@
         <tbody>
         <tr th:each="style : ${styles}" >
             <td scope="row"><a th:href="@{'/style/viewStyleId/'+${style.id}}" th:text="${style.id}"></a></td>
-            <td th:text="${style.name}"></td>
+            <td scope="row"><a th:href="@{'/style/viewStyleName/'+${style.name}}" th:text="${style.name}"></a></td>
             <td th:text="${style.rootFolder}"></td>
             <td th:text="${style.count}" th:id="${style.name}" th:name="${style.name}"></td>
             <td th:id="${style.name}+'-reload'" th:name="${style.name}+'-reload'"></td>

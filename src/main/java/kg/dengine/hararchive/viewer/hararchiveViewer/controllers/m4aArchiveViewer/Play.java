@@ -33,45 +33,6 @@ public class Play {
     @Autowired
     private StyleRepository styleRepository;
 
-
-    @RequestMapping(value = "/play/get/{characterId}", method = RequestMethod.GET, produces = {
-            MediaType.APPLICATION_OCTET_STREAM_VALUE })
-    public ResponseEntity playAudio(HttpServletRequest request, HttpServletResponse response, @PathVariable("characterId") int characterId) throws FileNotFoundException {
-
-//        logger.debug("[downloadRecipientFile]");
-
-//        de.tki.chinese.entity.Character character = characterRepository.findById(characterId);
-//        String file = UPLOADED_FOLDER + character.getSoundFile();
-        String file = "/home/dex/Music/28-vandera-is_it_real_(merce_remix).m4a";
-
-        long length = new File(file).length();
-
-
-        InputStreamResource inputStreamResource = new InputStreamResource( new FileInputStream(file));
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentLength(length);
-        httpHeaders.setCacheControl(CacheControl.noCache().getHeaderValue());
-        return new ResponseEntity(inputStreamResource, httpHeaders, HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/play/get/test", method = RequestMethod.GET, produces = {
-            MediaType.APPLICATION_OCTET_STREAM_VALUE })
-    public ResponseEntity playAudioTest(HttpServletRequest request, HttpServletResponse response) throws FileNotFoundException {
-
-        String file = "/home/dex/Music/28-vandera-is_it_real_(merce_remix).m4a";
-
-        long length = new File(file).length();
-
-        InputStreamResource inputStreamResource = new InputStreamResource( new FileInputStream(file));
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentLength(length);
-        httpHeaders.setCacheControl(CacheControl.noCache().getHeaderValue());
-        return new ResponseEntity(inputStreamResource, httpHeaders, HttpStatus.OK);
-    }
-
-
-
-
     @RequestMapping(value = "/play/{id}", method = RequestMethod.GET, produces = {
             MediaType.APPLICATION_OCTET_STREAM_VALUE })
     public ResponseEntity playAudioById(HttpServletRequest request, HttpServletResponse response,@PathVariable("id") Long trackId) throws FileNotFoundException {
@@ -98,6 +59,5 @@ public class Play {
         httpHeaders.setCacheControl(CacheControl.noCache().getHeaderValue());
         return new ResponseEntity(inputStreamResource, httpHeaders, HttpStatus.OK);
     }
-
 
 }

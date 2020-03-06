@@ -76,7 +76,28 @@
         </tr>
         <tr>
             <td>Path</td>
-            <td > <p th:text="${path}"></p> <br/><p><a th:href="@{'/play/'+${track.trackId}}" th:text="play"></a></p></td>
+            <td >
+                <p th:text="${path}"></p> <br/>
+                <p><a th:href="@{'/play/'+${track.trackId}}" th:text="play"></a></p> <br/>
+                <p>
+                    <audio style="width: 100%;" controls="controls" preload="none">
+                        <source th:src="@{'/play/'+${track.trackId}}" type="audio/mp4">
+                        <!--<source src="https://coolestguidesontheplanet.com/audiodrome/cgp_audio/should-i-stay.oga" type="audio/ogg">-->
+                    </audio>
+                </p> <br/>
+                <p style="display: none;">
+                    <audio style="width: 100%;" controls="controls" preload="none">
+                        <source src="https://coolestguidesontheplanet.com/audiodrome/cgp_audio/should-i-stay.m4a" type="audio/mp4">
+                        <source src="https://coolestguidesontheplanet.com/audiodrome/cgp_audio/should-i-stay.oga" type="audio/ogg">
+                        <object type="application/x-shockwave-flash" data="https://releases.flowplayer.org/swf/flowplayer-3.2.1.swf" width="640" height="360">
+                            <param name="audio" value="http://releases.flowplayer.org/swf/flowplayer-3.2.1.swf">
+                            <param name="allowFullScreen" value="true">
+                            <param name="wmode" value="transparent">
+                            <param name="flashVars" value="config={'playlist':[{'url':'http%3A%2F%2Fcoolestguidesontheplanet.com%2Faudiodrome%2Fcgp_audio%2Fshould-i-stay.m4a','autoPlay':false}]}">
+                            <span title="No video playback capabilities, please download the video below"></span>
+                        </object></audio>
+                </p>
+            </td>
         </tr>
 
         </tbody>

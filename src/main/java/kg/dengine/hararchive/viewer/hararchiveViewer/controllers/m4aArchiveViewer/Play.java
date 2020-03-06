@@ -81,7 +81,8 @@ public class Play {
         StyleEntity style = styleRepository.findByNameIs(track.getStyle());
         String path = "";
         if(!track.getFolder().equals("")) {
-            path = "/home/dex/Projects/Music/" + style.getRootFolder()+"/"+style.getName()+"/"+track.getFolder()+"/"+track.getTrack()+".m4a";
+//            path = "/home/dex/Projects/Music/" + style.getRootFolder()+"/"+style.getName()+"/"+track.getFolder()+"/"+track.getTrack()+".m4a";
+            path = "/media/dex/Music/" + style.getRootFolder()+"/"+style.getName()+"/"+track.getFolder()+"/"+track.getTrack()+".m4a";
         }
 
 

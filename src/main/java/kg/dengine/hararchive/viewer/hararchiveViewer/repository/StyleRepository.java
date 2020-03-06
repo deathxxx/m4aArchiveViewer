@@ -28,4 +28,8 @@ public interface StyleRepository extends CrudRepository<StyleEntity, Integer> {
     StyleEntity findByNameIs(String style);
 
     List<StyleEntity> findByRootFolderIs(String rootFolder);
+
+    List<StyleEntity> findAllByOrderByIdAsc();
+    List<StyleEntity> findAllByOrderByNameAsc();
+    List<StyleEntity> findAllByOrderByRootFolderAsc();
 }

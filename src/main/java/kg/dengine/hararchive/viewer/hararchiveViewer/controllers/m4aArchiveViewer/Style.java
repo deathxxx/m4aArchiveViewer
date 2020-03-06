@@ -75,6 +75,47 @@ public class Style {
         return "indexStyle";
     }
 
+    @GetMapping({"/searchStyleOrder/{order}/{search}", "/searchStyleOrder/{order}"})
+    public String searchStylesOrder(@PathVariable String order, String search, Model model){
+        model.addAttribute("appName", appName);
+
+        System.out.println("serachStyle - get");
+        System.out.println(search);
+
+        List<StyleEntity> style = new ArrayList<>();
+        if (search != null && !search.equals("")) {
+            style = styleRepository.findByName(search);
+        } else {
+            switch (order) {
+                case "id" :
+                    style = styleRepository.findAllByOrderByIdAsc();
+                    break;
+                case "style" :
+                    style = styleRepository.findAllByOrderByNameAsc();
+                    break;
+                case "root" :
+                    style = styleRepository.findAllByOrderByRootFolderAsc();
+                    break;
+                default:
+                    style = (List<StyleEntity>) styleRepository.findAll();
+            }
+        }
+
+        //TODO: long loading - need to renew to ajax single load style
+//        for (StyleEntity ent: style) {
+//            ent.setCount(styleRepository.nativeCountStyle(ent.getId()));
+//        }
+
+
+
+        System.out.println(style.size());
+        model.addAttribute("search", search);
+        model.addAttribute("count", style.size());
+        model.addAttribute("styles", style);
+
+        return "indexStyle";
+    }
+
     @GetMapping("/viewStyleId/{styleId}")
     public String viewStyleId(@PathVariable Integer styleId, Model model) {
 //        List<AllEntity> allByStyle = styleRepository.getAllByStyle(styleId);

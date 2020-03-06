@@ -187,17 +187,29 @@ public class Style {
 
         List<AllEntity> allByStyleAllContains = new ArrayList<>();
         switch (order) {
-            case "id" :
+            case "idAsc" :
                 allByStyleAllContains = repository.findAllByStyleAllContainsOrderByTrackIdAsc(byIdSingle1.getName());
                 break;
-            case "artist" :
+            case "idDesc" :
+                allByStyleAllContains = repository.findAllByStyleAllContainsOrderByTrackIdDesc(byIdSingle1.getName());
+                break;
+            case "artistAsc" :
                 allByStyleAllContains = repository.findAllByStyleAllContainsOrderByDisplayArtistAsc(byIdSingle1.getName());
                 break;
-            case "title" :
+            case "artistDesc" :
+                allByStyleAllContains = repository.findAllByStyleAllContainsOrderByDisplayArtistDesc(byIdSingle1.getName());
+                break;
+            case "titleAsc" :
                 allByStyleAllContains = repository.findAllByStyleAllContainsOrderByTrackAsc(byIdSingle1.getName());
                 break;
-            case "style" :
+            case "titleDesc" :
+                allByStyleAllContains = repository.findAllByStyleAllContainsOrderByTrackDesc(byIdSingle1.getName());
+                break;
+            case "styleAsc" :
                 allByStyleAllContains = repository.findAllByStyleAllContainsOrderByStyleAsc(byIdSingle1.getName());
+                break;
+            case "styleDesc" :
+                allByStyleAllContains = repository.findAllByStyleAllContainsOrderByStyleDesc(byIdSingle1.getName());
                 break;
             case "upAsc" :
                 allByStyleAllContains = repository.findAllByStyleAllContainsOrderByVoteUpAsc(byIdSingle1.getName());
@@ -217,25 +229,22 @@ public class Style {
         System.out.println(byIdSingle.get().getName());
         System.out.println(byIdSingle1.getName());
 
-        String voteUp = "", voteDown = "";
-        if(order.equals("upAsc")) {
-            voteUp = "upDesc";
-        } else if (order.equals("upDesc")) {
-            voteUp = "upAsc";
-        } else {
-            voteUp = "upDesc"; //default
-        }
+        String idOrder = order.equals("idAsc") ? "idDesc" : "idAsc";
+        String artistOrder = order.equals("artistAsc") ? "artistDesc" : "artistAsc";
+        String titleOrder = order.equals("titleAsc") ? "titleDesc" : "titleAsc";
+        String styleOrder = order.equals("styleAsc") ? "styleDesc" : "styleAsc";
+        String upOrder = order.equals("upAsc") ? "upDesc" : "upAsc";
+        String downOrder = order.equals("downAsc") ? "downDesc" : "downAsc";
 
-        if(order.equals("downAsc")) {
-            voteDown = "downDesc";
-        } else if (order.equals("downDesc")) {
-            voteDown = "downAsc";
-        } else {
-            voteDown = "downDesc"; //default
-        }
 
-        model.addAttribute("voteUp", voteUp);
-        model.addAttribute("voteDown", voteDown);
+
+
+        model.addAttribute("idOrder", idOrder);
+        model.addAttribute("artistOrder", artistOrder);
+        model.addAttribute("titleOrder", titleOrder);
+        model.addAttribute("styleOrder", styleOrder);
+        model.addAttribute("upOrder", upOrder);
+        model.addAttribute("downOrder", downOrder);
 
         model.addAttribute("search", byIdSingle.get().getName());
         model.addAttribute("count", allByStyleAllContains.size());

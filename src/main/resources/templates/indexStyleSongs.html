@@ -26,12 +26,12 @@
     <table class="table">
         <thead>
         <tr>
-            <th scope="col"><a th:href="@{'/style/viewStyleNameOrder/id/'+${search}}">#</a></th>
-            <th scope="col"><a th:href="@{'/style/viewStyleNameOrder/artist/'+${search}}">Artist</a></th>
-            <th scope="col"><a th:href="@{'/style/viewStyleNameOrder/title/'+${search}}">Title</a></th>
-            <th scope="col"><a th:href="@{'/style/viewStyleNameOrder/style/'+${search}}">Style</a></th>
-            <th scope="col"><a th:href="@{'/style/viewStyleNameOrder/'+${voteUp}+'/'+${search}}">voteUp</a></th>
-            <th scope="col"><a th:href="@{'/style/viewStyleNameOrder/'+${voteDown}+'/'+${search}}">voteDown</a></th>
+            <th scope="col"><a th:href="@{'/style/viewStyleNameOrder/'+${idOrder}+'/'+${search}}">#</a></th>
+            <th scope="col"><a th:href="@{'/style/viewStyleNameOrder/'+${artistOrder}+'/'+${search}}">Artist</a></th>
+            <th scope="col"><a th:href="@{'/style/viewStyleNameOrder/'+${titleOrder}+'/'+${search}}">Title</a></th>
+            <th scope="col"><a th:href="@{'/style/viewStyleNameOrder/'+${styleOrder}+'/'+${search}}">Style</a></th>
+            <th scope="col"><a th:href="@{'/style/viewStyleNameOrder/'+${upOrder}+'/'+${search}}">voteUp</a></th>
+            <th scope="col"><a th:href="@{'/style/viewStyleNameOrder/'+${downOrder}+'/'+${search}}">voteDown</a></th>
         </tr>
         </thead>
         <tbody>

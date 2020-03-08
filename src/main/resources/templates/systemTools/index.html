@@ -1,0 +1,28 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en">
+<head th:replace="fragments2/header1 :: head"></head>
+<body class="bg-light">
+<div class="container">
+    <div th:replace="fragments2/navbar1 :: navbar"></div>
+
+    <h1>System -> Index</h1>
+    <p>Welcome to <span th:text="${appName}">Our App</span></p>
+
+    <p>
+        <a th:href="@{viewTxtBase}" th:text="viewTxtBase"></a><br/>
+        <a th:href="@{viewTxtBaseAll}" th:text="viewTxtBaseAll"></a><br/>
+        <a th:href="@{viewTreeTest}" th:text="viewTreeTest"></a>
+        <a th:href="@{viewTreeMap}" th:text="viewTreeMap"></a>
+    </p>
+
+</div>
+<div th:replace="fragments2/footer1 :: footer"></div>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $( document ).ready(function() {
+        console.log( "ready!" );
+    });
+    /*]]>*/
+</script>
+</body>
+</html>

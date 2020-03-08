@@ -38,6 +38,8 @@ public class HarArchiveView {
     @Value("${spring.application.name}")
     String appName;
 
+    String mainPath = "/home/dex/Projects/Music/";
+
     @GetMapping("/")
     public String homePage(Model model) {
         model.addAttribute("appName", appName);
@@ -81,12 +83,14 @@ public class HarArchiveView {
         model.addAttribute("track", track);
         model.addAttribute("style", style);
         if(!track.getFolder().equals("")) {
-            model.addAttribute("path", "/home/dex/Projects/Music/" + style.getRootFolder()+"/"+style.getName()+"/"+track.getFolder()+"/"+track.getTrack()+".m4a");
+            model.addAttribute("path", mainPath + style.getRootFolder()+"/"+style.getName()+"/"+track.getFolder()+"/"+track.getTrack()+".m4a");
         }
         model.addAttribute("jsonFormated", parseJson(track.getJson()));
 
         model.addAttribute("asset_url", "http:"+parseJsonObjectElementToString(track.getJson(),"asset_url"));
         model.addAttribute("details_url", parseJsonObjectElementToString(track.getJson(), "details_url"));
+
+        model.addAttribute("mainPath",mainPath);
         return "view";
     }
 

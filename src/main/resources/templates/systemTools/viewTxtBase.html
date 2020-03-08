@@ -1,0 +1,49 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en">
+<head th:replace="fragments2/header1 :: head"></head>
+<body class="bg-light">
+<div class="container">
+    <div th:replace="fragments2/navbar1 :: navbar"></div>
+
+    <h1>System -> ViewFilesTxtBase</h1>
+    <p>Welcome to <span th:text="${appName}">Our App</span></p>
+    <p>Search by Style (Only)</p>
+    <form class="form-inline" method="post" action="/style/searchStyle">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="all" name="">
+            <label class="form-check-label" for="all">
+                Default checkbox
+            </label>
+        </div>
+        <p>
+            <label for="input">Search</label>
+            <input type="text" id="input" name="search" placeholder="Example input" th:value="${search}">
+            <button type="submit" class="btn btn-primary">Search</button>
+            <span th:text="${count}">0</span>
+        </p>
+    </form>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col"><a th:href="@{'/style/searchStyleOrder/'+${idOrder}}">key</a></th>
+            <th scope="col"><a th:href="@{'/style/searchStyleOrder/'+${styleOrder}}">value</a></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="mapEntry : ${styles}" >
+            <td th:text="${mapEntry.key}"></td>
+            <td th:text="${mapEntry.value}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+<div th:replace="fragments2/footer1 :: footer"></div>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    /*]]>*/
+</script>
+</body>
+</html>

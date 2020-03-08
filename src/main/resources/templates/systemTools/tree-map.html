@@ -1,0 +1,139 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en">
+<head th:replace="fragments2/header1-tree :: head"></head>
+<body class="bg-light">
+<div class="container">
+    <div th:replace="fragments2/navbar1 :: navbar"></div>
+
+    <h1>System -> Index</h1>
+    <p>Welcome to <span th:text="${appName}">Our App</span></p>
+
+    <ul id="tree11">
+        <th:block th:each="folder : ${all}">
+            <li><span th:text="${folder.key}"></span>
+                <ul>
+                    <li th:each="mediafolder : ${folder.value}"><span th:text="${mediafolder.key}"></span>
+                        <ul>
+                            <li th:each="style : ${mediafolder.value}"><span th:text="${style.key}"></span></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </th:block>
+    </ul>
+
+
+    <ul id="tree1">
+        <li><span th:text="TECH"></span>
+
+            <ul>
+                <li>Company Maintenance</li>
+                <li>Employees
+                    <ul>
+                        <li>Reports
+                            <ul>
+                                <li>Report1</li>
+                                <li>Report2</li>
+                                <li>Report3</li>
+                            </ul>
+                        </li>
+                        <li>Employee Maint.</li>
+                    </ul>
+                </li>
+                <li>Human Resources</li>
+            </ul>
+        </li>
+        <li>XRP
+            <ul>
+                <li>Company Maintenance</li>
+                <li>Employees
+                    <ul>
+                        <li>Reports
+                            <ul>
+                                <li>Report1</li>
+                                <li>Report2</li>
+                                <li>Report3</li>
+                            </ul>
+                        </li>
+                        <li>Employee Maint.</li>
+                    </ul>
+                </li>
+                <li>Human Resources</li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<div th:replace="fragments2/footer1 :: footer"></div>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $( document ).ready(function() {
+        console.log( "ready!" );
+    });
+
+    $.fn.extend({
+        treed: function (o) {
+
+            var openedClass = 'glyphicon-minus-sign';
+            var closedClass = 'glyphicon-plus-sign';
+
+            if (typeof o != 'undefined'){
+                if (typeof o.openedClass != 'undefined'){
+                    openedClass = o.openedClass;
+                }
+                if (typeof o.closedClass != 'undefined'){
+                    closedClass = o.closedClass;
+                }
+            };
+
+            //initialize each of the top levels
+            var tree = $(this);
+            tree.addClass("tree");
+            tree.find('li').has("ul").each(function () {
+                var branch = $(this); //li with children ul
+                branch.prepend("<i class='indicator glyphicon " + closedClass + "'></i>");
+                branch.addClass('branch');
+                branch.on('click', function (e) {
+                    if (this == e.target) {
+                        var icon = $(this).children('i:first');
+                        icon.toggleClass(openedClass + " " + closedClass);
+                        $(this).children().children().toggle();
+                    }
+                })
+                branch.children().children().toggle();
+            });
+            //fire event from the dynamically added icon
+            tree.find('.branch .indicator').each(function(){
+                $(this).on('click', function () {
+                    $(this).closest('li').click();
+                });
+            });
+            //fire event to open branch if the li contains an anchor instead of text
+            tree.find('.branch>a').each(function () {
+                $(this).on('click', function (e) {
+                    $(this).closest('li').click();
+                    e.preventDefault();
+                });
+            });
+            //fire event to open branch if the li contains a button instead of text
+            tree.find('.branch>button').each(function () {
+                $(this).on('click', function (e) {
+                    $(this).closest('li').click();
+                    e.preventDefault();
+                });
+            });
+        }
+    });
+
+    //Initialization of treeviews
+
+    $('#tree1').treed();
+    $('#tree11').treed();
+
+    $('#tree2').treed({openedClass:'glyphicon-folder-open', closedClass:'glyphicon-folder-close'});
+
+    $('#tree3').treed({openedClass:'glyphicon-chevron-right', closedClass:'glyphicon-chevron-down'});
+
+    /*]]>*/
+</script>
+</body>
+</html>

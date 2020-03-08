@@ -33,31 +33,68 @@ public class Play {
     @Autowired
     private StyleRepository styleRepository;
 
+    public static String mainPath = "/home/dex/Projects/Music/";
+//    public static String mainPath = "/media/dex/Music/";
+
+    private ResponseEntity getResponseEntity(String path) {
+        String file = path;
+
+        long length = new File(file).length();
+
+        InputStreamResource inputStreamResource = null;
+        try {
+            inputStreamResource = new InputStreamResource( new FileInputStream(file));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentLength(length);
+        httpHeaders.setCacheControl(CacheControl.noCache().getHeaderValue());
+        return new ResponseEntity(inputStreamResource, httpHeaders, HttpStatus.OK);
+    }
     @RequestMapping(value = "/play/{id}", method = RequestMethod.GET, produces = {
             MediaType.APPLICATION_OCTET_STREAM_VALUE })
-    public ResponseEntity playAudioById(HttpServletRequest request, HttpServletResponse response,@PathVariable("id") Long trackId) throws FileNotFoundException {
+    public ResponseEntity playAudioById(HttpServletRequest request, HttpServletResponse response,
+                                        @PathVariable("id") Long trackId) throws FileNotFoundException {
 
         AllEntity track = repository.findByTrackId(trackId);
 //        System.out.println(track.getStyle());
         StyleEntity style = styleRepository.findByNameIs(track.getStyle());
         String path = "";
         if(!track.getFolder().equals("")) {
-//            path = "/home/dex/Projects/Music/" + style.getRootFolder()+"/"+style.getName()+"/"+track.getFolder()+"/"+track.getTrack()+".m4a";
-            path = "/media/dex/Music/" + style.getRootFolder()+"/"+style.getName()+"/"+track.getFolder()+"/"+track.getTrack()+".m4a";
+            path = mainPath + style.getRootFolder()+"/"+style.getName()+"/"+track.getFolder()+"/"+track.getTrack()+".m4a";
+//            path = mainPath + style.getRootFolder()+"/"+style.getName()+"/"+track.getFolder()+"/"+track.getTrack()+".m4a";
         }
 
+        return getResponseEntity(path);
+    }
 
+    @RequestMapping(value = "/playSpecialFolderRoot/{root}/{style}/{folder}/{id}", method = RequestMethod.GET, produces = {
+            MediaType.APPLICATION_OCTET_STREAM_VALUE })
+    public ResponseEntity playAudioByIdInSpecialFolder(HttpServletRequest request, HttpServletResponse response,
+                                                       @PathVariable("root") String root,
+                                                       @PathVariable("style") String style,
+                                                       @PathVariable("folder") String folder,
+                                                       @PathVariable("id") Long trackId
+    ) throws FileNotFoundException {
+        AllEntity track = repository.findByTrackId(trackId);
+        String path = mainPath + root + "/" + style + "/" + folder + "/" + track.getTrack()+".m4a";
 
-//        String file = "/home/dex/Music/28-vandera-is_it_real_(merce_remix).m4a";
-        String file = path;
+        return getResponseEntity(path);
+    }
 
-        long length = new File(file).length();
+    @RequestMapping(value = "/playSpecialFolder/{style}/{folder}/{id}", method = RequestMethod.GET, produces = {
+            MediaType.APPLICATION_OCTET_STREAM_VALUE })
+    public ResponseEntity playAudioByIdAccordingByStyle(HttpServletRequest request, HttpServletResponse response,
+                                                       @PathVariable("style") String style,
+                                                       @PathVariable("folder") String folder,
+                                                       @PathVariable("id") Long trackId
+    ) throws FileNotFoundException {
+        AllEntity track = repository.findByTrackId(trackId);
+        StyleEntity styleEnt = styleRepository.findByNameIs(track.getStyle());
+        String path = mainPath + styleEnt.getRootFolder() + "/" + style + "/" + folder + "/" + track.getTrack()+".m4a";
 
-        InputStreamResource inputStreamResource = new InputStreamResource( new FileInputStream(file));
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentLength(length);
-        httpHeaders.setCacheControl(CacheControl.noCache().getHeaderValue());
-        return new ResponseEntity(inputStreamResource, httpHeaders, HttpStatus.OK);
+        return getResponseEntity(path);
     }
 
 }

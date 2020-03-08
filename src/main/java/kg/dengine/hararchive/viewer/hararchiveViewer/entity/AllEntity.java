@@ -1,6 +1,9 @@
 package kg.dengine.hararchive.viewer.hararchiveViewer.entity;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -15,6 +18,7 @@ public class AllEntity {
     private Integer voteDown;
     private String style;
     private String styleAll;
+//    private List<Integer> styleAllArr;
     private String json;
     private String folder;
 //    private StyleEntity style;
@@ -116,9 +120,25 @@ public class AllEntity {
         return out;
     }
 
+    @Transient
+    public String[] getStyleAllArray() {
+        return styleAll.split(" ");
+    }
+
     public void setStyleAll(String styleAll) {
         this.styleAll = styleAll;
     }
+
+//    @Basic
+//    @Type(type = "list-array")
+//    @Column(name = "style_all_arr")
+//    public List<Integer> getStyleAllArr() {
+//        return styleAllArr;
+//    }
+//
+//    public void setStyleAllArr(List<Integer> styleAllArr) {
+//        this.styleAllArr = styleAllArr;
+//    }
 
     @Basic
 //    @Transient

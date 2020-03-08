@@ -56,7 +56,12 @@
         </tr>
         <tr>
             <td>styleAll</td>
-            <td th:text="${track.styleAllLinks}"></td>
+            <td>
+                <span th:utext="${track.styleAllLinks}"></span>
+                <th:block th:each="st : ${track.styleAllArray}">
+                    <span th:utext="${st}"></span>
+                </th:block>
+            </td>
         </tr>
         <tr>
             <td>styleAllArr</td>
@@ -81,14 +86,23 @@
         <tr>
             <td>Path</td>
             <td >
-                <p th:text="${path}"></p> <br/>
-                <p><a th:href="@{'/play/'+${track.trackId}}" th:text="play"></a></p> <br/>
+                <p>
+                    <a th:href="@{'/play/'+${track.trackId}}" th:text="play"></a>
+                    <span th:text="${path}"></span>
+                </p>
                 <p>
                     <audio style="width: 100%;" controls="controls" preload="none">
                         <source th:src="@{'/play/'+${track.trackId}}" type="audio/mp4">
                         <!--<source src="https://coolestguidesontheplanet.com/audiodrome/cgp_audio/should-i-stay.oga" type="audio/ogg">-->
                     </audio>
                 </p> <br/>
+                <th:block th:each="st : ${track.styleAllArray}">
+                    <a th:href="@{http://localhost:8080/playSpecialFolder/}+${st}+@{/}+${track.folder}+@{/}+${track.trackId}" th:text="play"></a>
+                    <span th:text="${mainPath}"></span><span th:text="${st}"></span>
+                    <audio style="width: 100%;" controls="controls" preload="none">
+                        <source th:src="@{'/playSpecialFolder/'+${st}+'/'+${track.folder}+'/+${track.trackId}}" type="audio/mp4">
+                    </audio>
+                </th:block>
                 <p style="display: none;">
                     <audio style="width: 100%;" controls="controls" preload="none">
                         <source src="https://coolestguidesontheplanet.com/audiodrome/cgp_audio/should-i-stay.m4a" type="audio/mp4">

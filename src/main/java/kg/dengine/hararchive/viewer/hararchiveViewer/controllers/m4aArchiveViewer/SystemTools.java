@@ -4,24 +4,120 @@ import com.sun.xml.internal.messaging.saaj.util.FinalArrayList;
 import kg.dengine.hararchive.viewer.hararchiveViewer.entity.AllEntity;
 import kg.dengine.hararchive.viewer.hararchiveViewer.entity.StyleEntity;
 import kg.dengine.hararchive.viewer.hararchiveViewer.other.ReadFilesTxtBase;
+import kg.dengine.hararchive.viewer.hararchiveViewer.other.txtb.TxtBase0;
+import kg.dengine.hararchive.viewer.hararchiveViewer.other.txtb.TxtBase1;
+import kg.dengine.hararchive.viewer.hararchiveViewer.other.txtb.TxtBase2;
 import kg.dengine.hararchive.viewer.hararchiveViewer.repository.AllSongRepository;
 import kg.dengine.hararchive.viewer.hararchiveViewer.repository.StyleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Controller
+@RequestMapping("/systemTools")
 public class SystemTools {
     @Autowired
     private AllSongRepository repository;
 
     @Autowired
     private StyleRepository styleRepository;
+
+    @Value("${spring.application.name}")
+    String appName;
+
+    @GetMapping({"/system", "/"})
+    public String homePageStyle(Model model) {
+        model.addAttribute("appName", appName);
+
+        return "systemTools/index";
+    }
+
+    @GetMapping("/viewTxtBase")
+    public String viewTxtBase(Model model) {
+        ReadFilesTxtBase readFilesTxtBase = new ReadFilesTxtBase();
+        Map<String, String> styles = readFilesTxtBase.styles();
+
+//        List<Map<String, String>> mapsList = new ArrayList<Map<String, String>>();
+//        mapsList.add(styles);
+//        model.addAttribute("styles",mapsList);
+
+        model.addAttribute("styles", styles);
+
+        return "systemTools/viewTxtBase";
+    }
+
+    @GetMapping("/viewTxtBaseAll")
+    public String viewTxtBaseAll(Model model) {
+        ReadFilesTxtBase readFilesTxtBase = new ReadFilesTxtBase();
+        Map<String, String> styles = readFilesTxtBase.GetSavedFiles();
+        model.addAttribute("styles", styles);
+
+        return "systemTools/viewTxtBase";
+
+
+    }
+
+
+    @GetMapping("/viewTreeTest")
+    public String viewTreeTest(Model model) {
+        ReadFilesTxtBase readFilesTxtBase = new ReadFilesTxtBase();
+//        Map<String, String> styles = readFilesTxtBase.GetSavedFiles();
+//        model.addAttribute("styles", styles);
+
+        return "systemTools/tree-test";
+
+
+    }
+
+
+    @GetMapping("/viewTreeMap")
+    public String viewTreeMap(Model model) {
+        ReadFilesTxtBase readFilesTxtBase = new ReadFilesTxtBase();
+//        Map<String, String> styles = readFilesTxtBase.GetSavedFiles();
+//        model.addAttribute("styles", styles);
+
+        TxtBase0 d0 = new TxtBase0();
+        TxtBase1 d1 = new TxtBase1();
+        TxtBase2 d2 = new TxtBase2();
+
+        System.out.println(d0.root());
+        System.out.println(d1.root());
+        Map<String,Map<String,Map<String,String>>> all = new HashMap<>();
+        for (Map.Entry<String, String> entry0 : d0.root().entrySet()) {                         //root
+//            System.out.println(entry0.getKey() + "/" + entry0.getValue());
+            Map<String,Map<String,String>> allSt = new HashMap<>();
+            for (Map.Entry<String, String> entry1 : d1.root().entrySet()) {                     //mediafolder
+                if(entry0.getKey().equals(entry1.getValue())){
+                      System.out.println(d2.get(entry1.getKey()));
+                    for(Map.Entry<String,String> entry2 : d2.get(entry1.getKey()).entrySet()){  //style
+                        if(entry2.getValue().equals(entry1.getKey())) {
+                            allSt.put(entry1.getKey(),d2.get(entry1.getKey()));
+                        }
+                    }
+                    all.put(entry0.getKey(), allSt);
+                    System.out.println(entry1.getKey() + "/" + entry1.getValue());
+                }
+
+
+            }
+        }
+        System.out.println(all);
+
+        model.addAttribute("all", all);
+        return "systemTools/tree-map";
+
+
+    }
+
+
 
     @GetMapping("/updateStyleRootFolder")
     public String updateStyleRootFolder(Model model) {
